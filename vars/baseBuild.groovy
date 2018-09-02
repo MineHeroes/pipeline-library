@@ -22,7 +22,17 @@ def call(body) {
     body.delegate = config
     body()
 
-    run(config)
+    try {
+        run(config)
+    } catch (ignored) {
+        config.success = false
+        echo "Caught exception ${ignored}"
+    }
+
+    /*
+     * notify slack/discord/...
+     */
+    notifyIntegration(config)
 }
 
 def run(config) {
@@ -37,7 +47,7 @@ def run(config) {
      * Post build actions
      */
     postBuild(config)
-    echo 'Pipeline completed'
+    echo 'Pipeline completed without errors'
 }
 
 def postBuild(config) {
@@ -56,9 +66,4 @@ def postBuild(config) {
     if (config.success && currentBuild.currentResult == "SUCCESS") {
         notifyPSSDeployment()
     }
-
-    /*
-     * notify slack/discord/...
-     */
-    notifyIntegration(config)
 }
