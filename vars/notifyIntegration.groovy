@@ -1,10 +1,11 @@
-def call(String jobName, String buildNumber, String result, String duration, String url) {
-    duration = duration.replace(' and counting', '')
+def call() {
+    String result = currentBuild.currentResult
+    String duration = currentBuild.durationString.replace(' and counting', '')
 
     if (result == "SUCCESS") {
-        notifySuccessful(jobName, buildNumber, result.toLowerCase().capitalize(), duration, url)
+        notifySuccessful(env.JOB_NAME, env.BUILD_NUMBER, result.toLowerCase().capitalize(), duration, env.BUILD_URL)
     } else {
-        notifyFailed(jobName, buildNumber, result.toLowerCase().capitalize(), duration, url)
+        notifyFailed(env.JOB_NAME, env.BUILD_NUMBER, result.toLowerCase().capitalize(), duration, env.BUILD_URL)
     }
 }
 
