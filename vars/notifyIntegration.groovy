@@ -1,5 +1,5 @@
 def call(config) {
-    String result = currentBuild.currentResult
+    String result = currentBuild.result
     String duration = currentBuild.durationString.replace(' and counting', '')
 
     if (result == "SUCCESS" && config.success) {
