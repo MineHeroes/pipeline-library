@@ -8,6 +8,7 @@ static def getDefaultConfig() {
             serverWhitelist: [],
             serverBlacklist: [],
             pssAddresses   : ["pss.mineheroes.net:9093", "testing.mineheroes.net:9093"],
+            success        : true,
     ]
 }
 
@@ -44,21 +45,21 @@ def postBuild(config) {
     /*
      * archive jars when success
      */
-    if (config.archive && env.currentResult == "SUCCESS") {
+    if (config.success && config.archive && env.currentResult == "SUCCESS") {
         archiveArtifacts(config)
     }
 
     /*
      * Add config json to archive
      */
-    if (env.currentResult == "SUCCESS") {
+    if (config.success && env.currentResult == "SUCCESS") {
         publishDeployConfig(config)
     }
 
     /*
      * Notify PSS when success
      */
-    if (env.currentResult == "SUCCESS") {
+    if (config.success && env.currentResult == "SUCCESS") {
         notifyPSSDeployment()
     }
 

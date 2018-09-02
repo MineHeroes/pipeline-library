@@ -4,22 +4,26 @@
 class standardBuild extends baseBuild {
 
     def process(config) {
-        try {
-            stage('Checkout') {
-                echo 'Checking out SCM'
-                checkout scm
+        node {
+            try {
+                stage('Checkout') {
+                    echo 'Checking out SCM'
+                    checkout scm
+                }
+                stage('SetVersion') {
+                    setPOMVersionStep(config)
+                }
+                stage('Clean') {
+                    stepCleanWorkspace()
+                }
+                stage('Build/Deploy') {
+                    stepBuildJar(config)
+                }
+            } catch (err) {
+                echo 'Build failed'
+                config.success = false
+                //throw err
             }
-            stage('SetVersion') {
-                setPOMVersionStep(config)
-            }
-            stage('Clean') {
-                stepCleanWorkspace()
-            }
-            stage('Build/Deploy') {
-                stepBuildJar(config)
-            }
-        } catch (err) {
-            throw err
         }
     }
 
