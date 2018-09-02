@@ -37,6 +37,7 @@ def run(config) {
      * Post build actions
      */
     postBuild(config)
+    echo 'Pipeline completed'
 }
 
 def postBuild(config) {
@@ -45,21 +46,21 @@ def postBuild(config) {
     /*
      * archive jars when success
      */
-    if (config.success && config.archive && env.currentResult == "SUCCESS") {
-        archiveArtifacts(config)
+    if (config.success && config.archive && currentBuild.currentResult == "SUCCESS") {
+        stepArchiveArtifacts(config)
     }
 
     /*
      * Add config json to archive
      */
-    if (config.success && env.currentResult == "SUCCESS") {
+    if (config.success && currentBuild.currentResult == "SUCCESS") {
         publishDeployConfig(config)
     }
 
     /*
      * Notify PSS when success
      */
-    if (config.success && env.currentResult == "SUCCESS") {
+    if (config.success && currentBuild.currentResult == "SUCCESS") {
         notifyPSSDeployment()
     }
 
