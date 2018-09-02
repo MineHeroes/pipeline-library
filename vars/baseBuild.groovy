@@ -26,7 +26,8 @@ def call(body) {
         run(config)
     } catch (ignored) {
         config.success = false
-        echo "Caught exception ${ignored}"
+        currentBuild.currentResult = "FAILURE"
+        echo "Caught exception:\n${ignored}"
     }
 
     /*
