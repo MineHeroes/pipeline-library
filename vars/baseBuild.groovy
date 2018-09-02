@@ -60,5 +60,5 @@ def postBuild(config) {
     /*
      * notify slack/discord/...
      */
-    notifyIntegration()
+    notifyIntegration(config)
 }

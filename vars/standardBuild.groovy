@@ -23,9 +23,9 @@ class standardBuild extends baseBuild {
                     stepArchiveArtifacts(config)
                 }
             } catch (err) {
-                echo 'Build failed'
+                echo 'Pipeline did not complete all tasks successfully!'
                 config.success = false
-                //throw err
+                err.printStackTrace()
             }
         }
     }
