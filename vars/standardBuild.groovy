@@ -19,6 +19,9 @@ class standardBuild extends baseBuild {
                 stage('Build/Deploy') {
                     stepBuildJar(config)
                 }
+                stage('Archive Jars') {
+                    stepArchiveArtifacts(config)
+                }
             } catch (err) {
                 echo 'Build failed'
                 config.success = false

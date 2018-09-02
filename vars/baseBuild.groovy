@@ -44,13 +44,6 @@ def postBuild(config) {
     echo 'Starting post build actions'
 
     /*
-     * archive jars when success
-     */
-    if (config.success && config.archive && currentBuild.currentResult == "SUCCESS") {
-        stepArchiveArtifacts(config)
-    }
-
-    /*
      * Add config json to archive
      */
     if (config.success && currentBuild.currentResult == "SUCCESS") {
