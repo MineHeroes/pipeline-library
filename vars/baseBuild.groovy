@@ -66,6 +66,6 @@ def postBuild(config) {
      * Notify PSS when success
      */
     if (config.success && currentBuild.currentResult == "SUCCESS") {
-        notifyPSSDeployment()
+        notifyPSSDeployment(config)
     }
 }
