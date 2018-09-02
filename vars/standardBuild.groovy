@@ -4,14 +4,7 @@
 class standardBuild extends baseBuild {
 
     def process(config) {
-        pipeline {
-            agent any
-
-            tools {
-                maven 'maven'
-                jdk 'jdk8'
-            }
-
+        try {
             stage('Checkout') {
                 steps {
                     echo 'Checking out SCM'
@@ -27,6 +20,8 @@ class standardBuild extends baseBuild {
             stage('Build/Deploy') {
                 stepBuildJar(config)
             }
+        } catch (err) {
+            throw err
         }
     }
 

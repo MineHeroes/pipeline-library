@@ -26,6 +26,7 @@ def call(body) {
 
 def run(config) {
     echo 'Starting Pipeline process'
+
     /*
      * Call process
      */
@@ -38,6 +39,7 @@ def run(config) {
 }
 
 def postBuild(config) {
+    echo 'Starting post build actions'
 
     /*
      * archive jars when success
