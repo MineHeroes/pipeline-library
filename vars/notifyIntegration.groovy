@@ -1,11 +1,13 @@
 def call(config) {
-    String result = currentBuild.result
-    String duration = currentBuild.durationString.replace(' and counting', '')
+    stage("Notifying Message Integration") {
+        String result = currentBuild.result
+        String duration = currentBuild.durationString.replace(' and counting', '')
 
-    if (result == "SUCCESS" && config.success) {
-        notifySuccessful(env.JOB_NAME, env.BUILD_NUMBER, result.toLowerCase().capitalize(), duration, env.BUILD_URL)
-    } else {
-        notifyFailed(env.JOB_NAME, env.BUILD_NUMBER, result.toLowerCase().capitalize(), duration, env.BUILD_URL)
+        if (result == "SUCCESS" && config.success) {
+            notifySuccessful(env.JOB_NAME, env.BUILD_NUMBER, result.toLowerCase().capitalize(), duration, env.BUILD_URL)
+        } else {
+            notifyFailed(env.JOB_NAME, env.BUILD_NUMBER, result.toLowerCase().capitalize(), duration, env.BUILD_URL)
+        }
     }
 }
 

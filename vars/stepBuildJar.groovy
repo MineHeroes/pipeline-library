@@ -1,8 +1,8 @@
 def call(config) {
 
-    echo 'Starting build and deploy process.'
-    timeout(time: 20, unit: 'MINUTES') {
-        script {
+    stage("Build and Deploy") {
+        echo 'Starting build and deploy process.'
+        timeout(time: 20, unit: 'MINUTES') {
             def pom = readMavenPom file: 'pom.xml'
             def command = "mvn"
 

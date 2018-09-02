@@ -1,4 +1,6 @@
 def call() {
-    echo 'Cleaning target/ directory'
-    sh 'mvn clean'
+    stage("Clean") {
+        echo 'Cleaning target/ directory'
+        sh 'mvn clean'
+    }
 }
