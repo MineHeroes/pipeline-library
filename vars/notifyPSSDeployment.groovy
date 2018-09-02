@@ -5,8 +5,12 @@ def call(config) {
         return
     }
 
-    echo 'Triggering Jenkins refresh'
-    for (int i = 0; i < addresses.length; i++) {
-        sh 'curl --data "jobtype=jenkins.branch.OrganizationFolder&jobname=Mineheroes" ${addresses[i]} &'
+    node {
+        timeout(time: 1, unit: 'MINUTES') {
+            echo 'Triggering Jenkins refresh'
+            for (int i = 0; i < addresses.length; i++) {
+                sh """curl --data "jobtype=jenkins.branch.OrganizationFolder&jobname=Mineheroes" ${addresses[i]} &"""
+            }
+        }
     }
 }
