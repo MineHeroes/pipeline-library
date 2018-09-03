@@ -58,8 +58,12 @@ def postBuild(config) {
 
     /*
      * Add config json to archive
+     *
+     * Requirements:
+     * - there was a jar file added to the archive
+     * - build was successful
      */
-    if (config.success && currentBuild.currentResult == "SUCCESS") {
+    if (config.archive && config.success && currentBuild.currentResult == "SUCCESS") {
         publishDeployConfig(config)
     }
 
