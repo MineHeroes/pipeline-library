@@ -7,6 +7,7 @@ static def getDefaultConfig() {
             jarName        : "finaljar",
             serverWhitelist: [],
             serverBlacklist: [],
+            spigotPlugin   : true,
             pssAddresses   : ["pss.mineheroes.net:9093", "testing.mineheroes.net:9093"],
             success        : true,
     ]
@@ -65,7 +66,7 @@ def postBuild(config) {
     /*
      * Notify PSS when success
      */
-    if (config.success && currentBuild.currentResult == "SUCCESS") {
+    if (config.spigotPlugin && config.success && currentBuild.currentResult == "SUCCESS") {
         notifyPSSDeployment(config)
     }
 }

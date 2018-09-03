@@ -4,7 +4,7 @@ def call(config) {
         String[] whitelistServers = config.serverWhitelist
         String[] blacklistServers = config.serverBlacklist
 
-        def object = """{"deployable":${config.success},"serverWhitelist":${
+        def object = """{"deployable":${config.success && config.spigotPlugin},"serverWhitelist":${
             toStringArray(whitelistServers)
         },"serverBlacklist":${toStringArray(blacklistServers)}}"""
 
