@@ -5,7 +5,10 @@ def call(config) {
             def pom = readMavenPom file: 'pom.xml'
             def pomVersion = pom.getVersion().replace("-SNAPSHOT", "")
 
-            config.jarName = pom.getArtifactId()
+            // If name of jar file was not set, overwrite it with artifact id
+            if (config.jarName == null) {
+                config.jarName = pom.getArtifactId()
+            }
 
             if (BRANCH_NAME != 'master') {
                 pomVersion = "${pomVersion}_${BRANCH_NAME}-SNAPSHOT"

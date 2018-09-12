@@ -11,8 +11,10 @@ def call(config) {
         echo 'Writing deploy options to target directory'
 
         node {
-            writeFile file: 'target/deployOptions.json', text: object
-            archiveArtifacts artifacts: 'target/deployOptions.json', fingerprint: true, onlyIfSuccessful: true
+            dir(path: config.projectDir) {
+                writeFile file: "${config.targetDir}/deployOptions.json", text: object
+                archiveArtifacts artifacts: "${config.targetDir}/deployOptions.json", fingerprint: true, onlyIfSuccessful: true
+            }
         }
     }
 

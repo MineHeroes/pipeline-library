@@ -9,10 +9,12 @@ class standardBuild extends baseBuild {
                 echo 'Checking out SCM'
                 checkout scm
             }
-            setPOMVersionStep(config)
-            stepCleanWorkspace()
-            stepBuildJar(config)
-            stepArchiveArtifacts(config)
+            dir(path: config.projectDir) {
+                setPOMVersionStep(config)
+                stepCleanWorkspace()
+                stepBuildJar(config)
+                stepArchiveArtifacts(config)
+            }
         }
     }
 

@@ -4,11 +4,13 @@ static def getDefaultConfig() {
             source         : true,
             archive        : true,
             fixPOMVersion  : true,
-            jarName        : "finaljar",
+            projectDir     : '.',
+            jarName        : null,
+            targetDir      : 'target',
             serverWhitelist: [],
             serverBlacklist: [],
             spigotPlugin   : true,
-            pssAddresses   : ["pss.mineheroes.net:9093", "testing.mineheroes.net:9093"],
+            pssAddresses   : ['pss.mineheroes.net:9093', 'testing.mineheroes.net:9093'],
             success        : true,
     ]
 }
@@ -26,10 +28,10 @@ def call(body) {
     try {
         run(config)
         currentBuild.result = currentBuild.currentResult
-    } catch (ignored) {
+    } catch (e) {
         config.success = false
         currentBuild.result = "FAILURE"
-        echo "Caught exception:\n${ignored}"
+        echo "Caught exception:\n${e}"
     }
 
     /*
