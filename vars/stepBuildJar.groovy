@@ -4,7 +4,7 @@ def call(config) {
         echo 'Starting build and deploy process.'
         timeout(time: 20, unit: 'MINUTES') {
             def pom = readMavenPom file: 'pom.xml'
-            def command = "mvn"
+            def command = "MAVEN_OPTS=\"-XX:+TieredCompilation -XX:TieredStopAtLevel=1\" mvn -T 2C"
 
             if (config.javadoc == true) {
                 echo 'Including JavaDoc'
