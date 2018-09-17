@@ -12,7 +12,7 @@ def call(config) {
 }
 
 def notifySuccessful(String jobName, String buildNumber, String result, String duration, String url) {
-    slackSend(color: 'good', message: "${jobName} - #${buildNumber} ${result} after ${duration} (<${url}|Open>)")
+    // slackSend(color: 'good', message: "${jobName} - #${buildNumber} ${result} after ${duration} (<${url}|Open>)")
 
     withCredentials([string(credentialsId: 'discord_hook', variable: 'discWebhook')]) {
         discordSend description: "${jobName} - #${buildNumber} ${result} after ${duration} ([Open](${url}))", successful: true, webhookURL: discWebhook
@@ -20,7 +20,7 @@ def notifySuccessful(String jobName, String buildNumber, String result, String d
 }
 
 def notifyFailed(String jobName, String buildNumber, String result, String duration, String url) {
-    slackSend(color: 'danger', message: "${jobName} - #${buildNumber} ${result} after ${duration} (<${url}|Open>)")
+    // slackSend(color: 'danger', message: "${jobName} - #${buildNumber} ${result} after ${duration} (<${url}|Open>)")
 
     withCredentials([string(credentialsId: 'discord_hook', variable: 'discWebhook')]) {
         discordSend description: "${jobName} - #${buildNumber} ${result} after ${duration} ([Open](${url}))", successful: false, webhookURL: discWebhook
