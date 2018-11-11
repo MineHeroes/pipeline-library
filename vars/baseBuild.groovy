@@ -1,17 +1,18 @@
 static def getDefaultConfig() {
     return [
-            javadoc        : true,
-            source         : true,
-            archive        : true,
-            fixPOMVersion  : true,
-            projectDir     : '.',
-            jarName        : null,
-            targetDir      : 'target',
-            serverWhitelist: [],
-            serverBlacklist: [],
-            spigotPlugin   : true,
-            pssAddresses   : ['pss.mineheroes.net:9093', 'testing.mineheroes.net:9093'],
-            success        : true,
+            javadoc           : true,
+            source            : true,
+            archive           : true,
+            fixPOMVersion     : true,
+            projectDir        : '.',
+            jarName           : null,
+            keepNumberOfBuilds: '50',
+            targetDir         : 'target',
+            serverWhitelist   : [],
+            serverBlacklist   : [],
+            spigotPlugin      : true,
+            pssAddresses      : ['pss.mineheroes.net:9093', 'testing.mineheroes.net:9093'],
+            success           : true,
     ]
 }
 

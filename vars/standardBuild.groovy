@@ -5,6 +5,7 @@ class standardBuild extends baseBuild {
 
     def process(config) {
         node {
+            properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: config.keepNumberOfBuilds, daysToKeepStr: '', numToKeepStr: ''))])
             stage('Checkout') {
                 echo 'Checking out SCM'
                 checkout scm
