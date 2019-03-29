@@ -11,6 +11,7 @@ class standardBuild extends baseBuild {
                 checkout scm
             }
             dir(path: config.projectDir) {
+                stepEffectivePom()
                 setPOMVersionStep(config)
                 stepCleanWorkspace()
                 stepBuildJar(config)
