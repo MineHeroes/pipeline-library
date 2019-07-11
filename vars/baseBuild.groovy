@@ -6,7 +6,7 @@ static def getDefaultConfig() {
             fixPOMVersion     : true,
             projectDir        : '.',
             jarName           : null,
-            keepNumberOfBuilds: '50',
+            keepNumberOfBuilds: '25',
             targetDir         : 'target',
             serverWhitelist   : [],
             serverBlacklist   : [],
