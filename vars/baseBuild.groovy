@@ -1,18 +1,19 @@
 static def getDefaultConfig() {
     return [
-            javadoc           : true,
-            source            : true,
-            archive           : true,
-            fixPOMVersion     : true,
-            projectDir        : '.',
-            jarName           : null,
-            keepNumberOfBuilds: '25',
-            targetDir         : 'target',
-            serverWhitelist   : [],
-            serverBlacklist   : [],
-            spigotPlugin      : true,
-            pssAddresses      : ['pss.mineheroes.net:9093', 'testing.mineheroes.net:9093'],
-            success           : true,
+            javadoc                : true,
+            source                 : true,
+            archive                : true,
+            fixPOMVersion          : true,
+            projectDir             : '.',
+            jarName                : null,
+            keepNumberOfBuilds     : '25',
+            targetDir              : 'target',
+            serverWhitelist        : [],
+            serverBlacklist        : [],
+            spigotPlugin           : true,
+            pssAddresses           : ['pss.mineheroes.net:9093', 'testing.mineheroes.net:9093'],
+            success                : true,
+            triggerSucceedingBuilds: []
     ]
 }
 
@@ -76,4 +77,12 @@ def postBuild(config) {
     if (config.spigotPlugin && config.success && currentBuild.currentResult == "SUCCESS") {
         notifyPSSDeployment(config)
     }
+
+    /*
+     * Trigger succeeding builds if any
+     */
+    if (config.triggerSucceedingBuilds.length > 0) {
+        triggerSucceedingBuilds(config)
+    }
+
 }
