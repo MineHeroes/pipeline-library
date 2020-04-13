@@ -81,7 +81,7 @@ def postBuild(config) {
     /*
      * Trigger succeeding builds if any
      */
-    if (config.triggerSucceedingBuilds.length > 0) {
+    if (config.triggerSucceedingBuilds.size() > 0) {
         triggerSucceedingBuilds(config)
     }
 
