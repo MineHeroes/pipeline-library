@@ -13,8 +13,13 @@ def call(config) {
 
         node {
             for (int i = 0; i < projects.length; i++) {
-                echo """Triggering build 'MineHeroes/${projects[i]}/master'"""
-                build job: "MineHeroes/${projects[i]}/master", propagate: false, quietPeriod: 10, wait: false
+                String projectName = projects[i]
+                if (!projectName.contains("/")) {
+                    projectName = projectName + "/master"
+                }
+
+                echo """Triggering build 'MineHeroes/${projectName}'"""
+                build job: "MineHeroes/${projectName}", propagate: false, quietPeriod: 10, wait: false
             }
         }
     }
