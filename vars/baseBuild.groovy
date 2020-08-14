@@ -3,6 +3,7 @@ static def getDefaultConfig() {
             javadoc                : true,
             source                 : true,
             archive                : true,
+            deploy                 : true,
             fixPOMVersion          : true,
             projectDir             : '.',
             jarName                : null,

@@ -15,11 +15,12 @@ def call(config) {
                 command = command.concat(' source:jar')
             }
             command = command.concat(" -Dbuild.number=-${BRANCH_NAME}_B${env.BUILD_NUMBER}")
-            if (pom.getDistributionManagement() != null) {
+            if (pom.getDistributionManagement() != null && config.deploy == true) {
                 echo 'Deploying results to Nexus'
                 command = command.concat(' deploy')
             } else {
-                command = command.concat(' install')
+                echo 'Creating jar package'
+                command = command.concat(' package')
             }
 
             sh "${command}"
