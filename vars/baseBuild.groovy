@@ -14,7 +14,8 @@ static def getDefaultConfig() {
             spigotPlugin           : true,
             pssAddresses           : ['pss.mineheroes.net:9093', 'testing.mineheroes.net:9093'],
             success                : true,
-            triggerSucceedingBuilds: []
+            triggerSucceedingBuilds: [],
+            useMavenProfile        : null
     ]
 }
 
