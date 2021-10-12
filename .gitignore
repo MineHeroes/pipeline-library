@@ -1,1 +1,4 @@
 .idea/
+
+#groovy lib folder
+lib/
