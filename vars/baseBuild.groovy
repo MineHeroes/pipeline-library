@@ -17,7 +17,8 @@ static def getDefaultConfig() {
             pssAddresses           : ['pss.mineheroes.net:9093', 'testing.mineheroes.net:9093'],
             success                : true,
             triggerSucceedingBuilds: [],
-            useMavenProfile        : null
+            useMavenProfile        : null,
+            gradleTask             : null
     ]
 }
 
