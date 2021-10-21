@@ -5,9 +5,9 @@ def call(config) {
             echo 'No succeeding builds to trigger'
             return
         }
-        //Only trigger when master branch
-        if (BRANCH_NAME != 'master') {
-            echo 'Not on master branch. Skipping build trigger.'
+        //Only trigger when main branch
+        if (BRANCH_NAME != config.mainBranch) {
+            echo "Not on ${config.mainBranch} branch. Skipping build trigger."
             return
         }
 
@@ -15,7 +15,7 @@ def call(config) {
             for (int i = 0; i < projects.length; i++) {
                 String projectName = projects[i]
                 if (!projectName.contains("/")) {
-                    projectName = projectName + "/master"
+                    projectName = projectName + "/${config.mainBranch}"
                 }
 
                 echo """Triggering build 'MineHeroes/${projectName}'"""

@@ -5,6 +5,7 @@ static def getDefaultConfig() {
             archive                : true,
             deploy                 : true,
             fixPOMVersion          : true,
+            mainBranch             : 'master',
             jdk                    : 'jdk8',
             projectDir             : '.',
             jarName                : null,

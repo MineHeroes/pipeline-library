@@ -10,12 +10,12 @@ def call(config) {
                 config.jarName = pom.getArtifactId()
             }
 
-            if (BRANCH_NAME != 'master') {
+            if (BRANCH_NAME != config.mainBranch) {
                 pomVersion = "${pomVersion}_${BRANCH_NAME}-SNAPSHOT"
                 echo "Set version to ${pomVersion}"
                 sh "mvn versions:set -DnewVersion=${pomVersion}"
             } else {
-                echo 'Branch is master. No version change required.'
+                echo "Branch is ${config.mainBranch}. No version change required."
             }
         }
     }
