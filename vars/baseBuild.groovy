@@ -18,7 +18,7 @@ static def getDefaultConfig() {
             success                : true,
             triggerSucceedingBuilds: [],
             useMavenProfile        : null,
-            gradleTask             : null
+            gradleTasks            : []
     ]
 }
 

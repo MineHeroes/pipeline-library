@@ -13,13 +13,13 @@ class gradleBuild extends baseBuild {
                 checkout scm
             }
             dir(path: config.projectDir) {
+                String content = readFile("gradle.properties")
+                Properties properties = new Properties()
+                properties.load(new StringReader(content))
+                String version = properties.version
 
                 stage('Version Check'){
-                    echo 'Checking version in gradle.properties'
-                    String content = readFile("gradle.properties")
-                    Properties properties = new Properties()
-                    properties.load(new StringReader(content))
-                    String version = properties.version
+                    echo "Checking version '${version}' from gradle.properties"
 
                     if (BRANCH_NAME != config.mainBranch) {
                         version.replace('-SNAPSHOT', '')
@@ -31,13 +31,18 @@ class gradleBuild extends baseBuild {
                 }
 
                 stage('Clean') {
-                    echo 'Cleaning caches'
-                    sh "./gradlew clean cleanCache"
+                    echo 'Cleaning build directories'
+                    sh "./gradlew clean"
                 }
 
-                stage('Gradle Task') {
-                    echo 'Executing gradle task'
-                    sh "./gradlew -Pversion=\"${version}\" ${config.gradleTask}"
+                stage('Gradle Tasks') {
+                    echo 'Executing gradle tasks'
+                    String[] tasks = config.gradleTasks
+                    for (String task : tasks) {
+                        timeout(time: 15, unit: 'MINUTES') {
+                            sh "./gradlew -Pversion=\"${version}\" ${task}"
+                        }
+                    }
                 }
                 stepArchiveArtifacts(config)
             }
