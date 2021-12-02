@@ -25,7 +25,7 @@ class gradleBuild extends baseBuild {
                             version = version.replace('-SNAPSHOT', '')
                             version = "${version}_${BRANCH_NAME}-SNAPSHOT"
                             properties.setProperty("version", version)
-                            properties.store(new FileWriter("gradle.properties", false), null)
+                            properties.store(new FileWriter("${WORKSPACE}/gradle.properties", false), null)
                             echo "Set version to ${version}"
                         } else {
                             echo "Branch is ${config.mainBranch}. No version change required."
