@@ -4,7 +4,7 @@ def call(config) {
             if (config.archiveName != null) {
                 echo "Renaming artifact ${config.targetDir}/${config.jarName}.jar to ${config.targetDir}/${config.archiveName}.jar"
                 fileOperations([fileRenameOperation(destination: "${config.targetDir}/${config.archiveName}.jar", source: "${config.targetDir}/${config.jarName}.jar")])
-                config.jarName = "${config.archiveName}.jar"
+                config.jarName = config.archiveName
             }
 
             echo "Archiving artifacts for ${env.JOB_NAME} #${env.BUILD_NUMBER}"
