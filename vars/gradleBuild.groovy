@@ -18,15 +18,20 @@ class gradleBuild extends baseBuild {
                 properties.load(new StringReader(content))
                 String version = properties.version
 
-                stage('Version Check'){
+                stage('Version Check') {
                     echo "Checking version '${version}' from gradle.properties"
-
-                    if (BRANCH_NAME != config.mainBranch) {
-                        version.replace('-SNAPSHOT', '')
-                        version = "${version}_${BRANCH_NAME}-SNAPSHOT"
-                        echo "Set version to ${version}"
+                    if (config.fixPOMVersion) {
+                        if (BRANCH_NAME != config.mainBranch) {
+                            version = version.replace('-SNAPSHOT', '')
+                            version = "${version}_${BRANCH_NAME}-SNAPSHOT"
+                            properties.setProperty("version", version)
+                            properties.store(new FileWriter("gradle.properties", false), null)
+                            echo "Set version to ${version}"
+                        } else {
+                            echo "Branch is ${config.mainBranch}. No version change required."
+                        }
                     } else {
-                        echo "Branch is ${config.mainBranch}. No version change required."
+                        echo "Not attempting version change by config setting!"
                     }
                 }
 
@@ -40,7 +45,7 @@ class gradleBuild extends baseBuild {
                     String[] tasks = config.gradleTasks
                     for (String task : tasks) {
                         timeout(time: 15, unit: 'MINUTES') {
-                            sh "./gradlew -Pversion=\"${version}\" ${task}"
+                            sh "./gradlew ${task}"
                         }
                     }
                 }
