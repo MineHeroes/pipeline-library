@@ -1,24 +1,25 @@
 static def getDefaultConfig() {
     return [
-            javadoc                : true,
-            source                 : true,
-            archive                : true,
-            deploy                 : true,
-            fixPOMVersion          : true,
-            mainBranch             : 'master',
             jdk                    : 'jdk8',
             projectDir             : '.',
-            jarName                : null,
+            mainBranch             : 'master',
+            gradleTasks            : [],
+            useMavenProfile        : null,
+            javadoc                : true,
+            source                 : true,
+            deploy                 : true,
+            fixPOMVersion          : true,
             keepNumberOfBuilds     : '25',
+            archive                : true,
             targetDir              : 'target',
+            jarName                : null,
+            archiveName            : null,
             serverWhitelist        : [],
             serverBlacklist        : [],
             spigotPlugin           : true,
             pssAddresses           : ['pss.mineheroes.net:9093', 'testing.mineheroes.net:9093'],
-            success                : true,
             triggerSucceedingBuilds: [],
-            useMavenProfile        : null,
-            gradleTasks            : []
+            success                : true
     ]
 }
 

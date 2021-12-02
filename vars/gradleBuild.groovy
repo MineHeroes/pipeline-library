@@ -13,9 +13,7 @@ class gradleBuild extends baseBuild {
                 checkout scm
             }
             dir(path: config.projectDir) {
-                String content = readFile("gradle.properties")
-                Properties properties = new Properties()
-                properties.load(new StringReader(content))
+                def properties = readProperties file: 'gradle.properties'
                 String version = properties.version
 
                 stage('Version Check') {
