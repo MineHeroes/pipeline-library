@@ -43,7 +43,7 @@ class gradleBuild extends baseBuild {
                     String[] tasks = config.gradleTasks
                     for (String task : tasks) {
                         timeout(time: 15, unit: 'MINUTES') {
-                            sh "./gradlew ${task}"
+                            sh "./gradlew -Pbuild.number=-${BRANCH_NAME}_B${env.BUILD_NUMBER} ${task}"
                         }
                     }
                 }
