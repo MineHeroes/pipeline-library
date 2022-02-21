@@ -23,6 +23,8 @@ static def getDefaultConfig() {
     ]
 }
 
+def skipBuild = false
+
 // The call(body) method in any file is exposed as a
 // method with the same name as the file.
 def call(body) {
@@ -38,8 +40,14 @@ def call(body) {
         currentBuild.result = currentBuild.currentResult
     } catch (e) {
         config.success = false
-        currentBuild.result = "FAILURE"
-        echo "Caught exception:\n${e}"
+        if (skipBuild) {
+            currentBuild.result = 'ABORTED'
+            echo "${e.message}"
+            return // return here; no notification needed
+        } else {
+            currentBuild.result = 'FAILURE'
+            echo "Caught exception:\n${e}"
+        }
     }
 
     /*
@@ -51,11 +59,25 @@ def call(body) {
 def run(config) {
     echo 'Starting Pipeline process'
 
-    /*
-     * Call process
-     */
-    process(config)
+    node {
+        // Checkout project from scm
 
+        stage('Checkout') {
+            echo 'Checking out SCM'
+            checkout scm
+
+            echo 'Checking commit for [ci skip]'
+            if (sh(script: "git log -1 --pretty=%B | fgrep -ie '[skip ci]' -e '[ci skip]'", returnStatus: true) == 0) {
+                skipBuild = true
+                error 'Aborting build because commit is marked as [ci skip]'
+            }
+        }
+
+        /*
+         * Call process
+         */
+        process(config)
+    }
     /*
      * Post build actions
      */
